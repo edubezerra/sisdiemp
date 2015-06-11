@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>Cadastro de Usuário</title>
+<link href="diempStyle.css" rel="Stylesheet" type="text/css" />
+<meta charset="UTF-8">
+</head>
+<body>
+	<center>
+		<div class="main">
+			<div class="logo">
+				<img id="cefetimg" src="logoCefet.gif" alt="LogoCefet">
+			</div>Sistema Diemp
+			<div><a style=" color:white; width: 45px; margin-top:-25px; float: right; display: initial;" href="login.html">voltar</a></div>
+		</div>
+		
+		<div class="box">
+		  <div class="intro">
+			<span id="welcome">
+				Cadastro de Usuário
+			</span>
+		  </div>
+		
+		  <form style="margin-top:10px;" class="form-wrapper" method="POST" action="cadastro.php">
+				<label class="cad">Login:</label><br><input style="margin-left:20px" class="campo" type="text" name="login" id="login"><br><br><br>
+				<label class="cad">Senha:</label><br><input class="campo" style="margin-left:20px" type="password" name="senha" id="senha"><br>
+				<input type="submit" value="cadastrar" id="cadastrar" class="button" name="cadastrar" style="width: 250px; margin:20px 0 -20px 0; float:none;font-size: 16px;">
+			 <br><br></form>
+		</div>
+	
+	</center>
+</body>
+
+</html>
