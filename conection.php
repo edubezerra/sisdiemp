@@ -1,7 +1,7 @@
 <html><head><meta charset="utf-8"></head><?php
 	$host = localhost;
-	$usuario = "root";
-	$senha = "";
+	$usuario = "diemp_usr";
+	$senha = "Diemp@2010";
 	$banco = "diemp";
 	
 	$c = mysql_connect($host,$usuario,$senha); // Conecta

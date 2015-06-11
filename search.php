@@ -1,6 +1,6 @@
 <html><head><meta charset="utf-8"></head><?php
     $resp="";
-	$acesso="localhost/root//diemp";
+	$acesso="localhost/diemp_usr/Diemp@2010/diemp";
 	if($_REQUEST["what"]=="units"){
 	
 		include "dbfunctions.php";
