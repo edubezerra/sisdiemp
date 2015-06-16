@@ -60,14 +60,14 @@
 			</span>
 			<p><p><p>
 			<div id="eu">
-				<form class="form-wrapper">
-					<select onchange="fillCourses(this.value)" class="campo" style="width: 350px; text-align: center" required>
+				<form class="form-wrapper" style="width:450px">
+					<select onchange="fillCourses(this.value)" class="campo" style="width: 450px; text-align: center" required>
 						<option>Selecione a Unidade...</option>
 					</select>
-					<select class="campo" style="width: 350px; text-align: center" required>
+					<select class="campo" style="width: 450px; text-align: center" required>
 						<option>Selecione o Curso...</option>
 					</select>
-					<input onclick="showResults()" value="Pesquisar" style="width: 350px; font-size: 16px;" class="submit">
+					<input onclick="showResults()" value="Pesquisar" style="width: 450px; font-size: 16px;" class="submit">
 				</form>
 			</div><br>
 		</div>
