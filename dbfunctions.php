@@ -1,26 +1,5 @@
 <html><head><meta charset="utf-8"></head>
 <?php
-function beginConnection($info){
-	list($host,$usuario,$senha,$banco)=explode("/",$info);
-
-	$c = mysql_connect($host,$usuario,$senha); // Conecta
-
-	if(!$c){ // Checa conexão
-		echo "erro na conexão";
-		echo mysql_error();
-		die();
-	}
-
-	if(!mysql_select_db($banco)){ // Seleciona e checa banco
-		echo "erro no select_db";
-		echo mysql_error();
-		mysql_close($c);
-		die();
-	}
-	mysql_query("SET CHARACTER SET 'utf8'");
-	
-	return $c;
-}
 
 function querySql($c,$query,$type){
 	$resp = mysql_query($query); // Consulta SQL

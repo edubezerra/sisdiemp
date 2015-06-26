@@ -1,13 +1,11 @@
 <html><head><meta charset="utf-8"></head><?php
     $resp="";
-	$acesso="localhost/diemp_usr/Diemp@2010/diemp";
 	if($_REQUEST["what"]=="units"){
 	
 		include "dbfunctions.php";
-		
-		$c=beginConnection($acesso);
-		
-		$sql="select distinct unidade from aluno";
+		include "conection.php";
+	
+		$sql="select distinct unidade from aluno where unidade <> ''";
 		$resp=getOptions($c,$sql,"unidade");
 		if($resp==false) $resp="Unidades não encontradas";
 		
@@ -19,7 +17,7 @@
 		
 		include "dbfunctions.php";
 		
-		$c=beginConnection($acesso);
+		include "conection.php";
 		
 		$sql="select distinct curso from aluno where(unidade like '$unit')";
 		$resp=getOptions($c,$sql,"curso");
@@ -33,7 +31,7 @@
 		$course=$_REQUEST["course"];		
 		
 		include "dbfunctions.php";
-		$c=beginConnection($acesso);
+		include "conection.php";
 		
 		$sql="select distinct a.id, a.nome as Nome, a.matricula as Matricula, a.curso as Curso, a.unidade as Unidade, a.cpf as CPF
 			  from aluno a inner join estagio e on(a.id=e.id_aluno)
@@ -44,9 +42,6 @@
 		if($resp==false) $resp="<b>Estagiários não encontrados</b>";
 				
 		mysql_close($c);
-	}
-	else if($_REQUEST["what"]=="student"){
-		// Em construção
 	}
 	else if($_REQUEST["what"]=="company" && $_REQUEST["descricao"]){
 	    $info=$_REQUEST["descricao"];
