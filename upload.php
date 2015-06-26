@@ -24,7 +24,7 @@
 				$unidade = $data[5];
 				$sql = "select Matricula from aluno use index (idx_Matricula) where Matricula = '$matricula';";
 				if(!mysql_query( $sql )){
-					$query = "INSERT INTOs aluno(Nome, Matricula, Curso, Unidade, Cpf) VALUES('$nome','$matricula','$curso','$unidade','$cpf');";
+					$query = "INSERT INTO aluno(Nome, Matricula, Curso, Unidade, Cpf) VALUES('$nome','$matricula','$curso','$unidade','$cpf');";
 					if(!mysql_query($query)) $erro++;
 					$cont++;
 				}
