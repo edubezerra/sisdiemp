@@ -17,7 +17,6 @@
 		var start=$(".campo:nth-of-type(4)").val();
 		var end=$(".campo:nth-of-type(5)").val();
 		var info={nome: name, cnpj: code, comp: comp, start: start, fim: end};
-		
 		if(!name)
 			alert("Cadastro não efetuado! \n É necessário inserir o nome da empresa.");
 		else if (!code)
@@ -26,9 +25,7 @@
 			alert("Cadastro não efetuado! \n É necessário inserir o número da empresa");
 		else if(!start)
 			alert("Cadastro não efetuado! \n É necessário inserir a data de início do convênio");
-		else if(!end)
-			alert("Cadastro não efetuado! \n É necessário inserir o tempo de convênio");
-		else if(anos > 10 || anos < 1)
+		else if(end > 10 || end < 1)
 			alert("Cadastro não efetuado! \n É necessário inserir tempo de convênio maior que 0 e menor que 10 anos");
 		else
 			$.post("signup.php",info,function(data){
