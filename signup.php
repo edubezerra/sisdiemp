@@ -1,10 +1,9 @@
 <html><head><meta charset="utf-8"></head><?php
 	include_once('useful_functions.php');
 	include_once('dbfunctions.php');
-
+	include_once('conection.php');
 	$result;
 	if($_REQUEST["nome"] && $_REQUEST["cnpj"] && $_REQUEST["fim"] && $_REQUEST["comp"] && $_REQUEST["start"]){
-	$acesso="localhost/root//diemp";
 		$name=$_REQUEST["nome"];
 		$code=$_REQUEST["cnpj"];
 		$comp = $_REQUEST["comp"];
@@ -107,10 +106,6 @@
 		$end_date .= $start_date[2];
 		
 		// VALIDAÇÃO CNPJ FIM
-		
-		include_once ('dbfunctions.php');
-		
-		$c=beginConnection($acesso);
 		
 		$sql="select id
 			  from empresa
