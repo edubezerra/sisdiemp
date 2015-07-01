@@ -228,19 +228,33 @@ function getTable3($c,$query,$name){
 		$resposta.="<tr>";
 		for($i=0;$i<$length;$i++){
 			$colName=$keys[$i];
-			if($keys[$i] !="id") $resposta.="<td style='background-color: #193a73'><center><big><big><b><font color='white'>$colName</td>";
+			if($colName !="id") $resposta.="<td style='background-color: #193a73'><center><big><big><b><font color='white'>$colName</td>";
+			else $resposta.="<td style='background-color: #193a73'><center><big><big><b><font color='white'>Editar</td>";
 		}
 		$resposta.="</tr>";
 		while($line){
 			$resposta.="<tr>";
+			$id_conv = $line[$keys[3]];
+			
+			$aux = explode("/", $line[$keys[0]]);
+			$conv_numero = $aux[0];
+			
+			$aux = explode("-", $line[$keys[1]]);
+			$dtInicio =  $aux[2]."/".$aux[1]."/".$aux[0];
+			
+			$aux = explode("-", $line[$keys[2]]);
+			$dtFim =  $aux[2]."/".$aux[1]."/".$aux[0];
 			for($i=0;$i<$length;$i++){
 				$informacao=$line[ $keys[$i] ];	
 				if(($i == 1 || $i == 2 ) && ($name == "Convênios")){
 					$aux = explode("-", $informacao);
 					$informacao = $aux[2]."/".$aux[1]."/".$aux[0];
 				}
-				if($i == 3)
-				$resposta.="<input type='hidden' name='tablefield[]' value='{$informacao}' readonly>";
+				if($i == 3){
+					$resposta.="<input type='hidden' name='tablefield[]' value='{$informacao}' readonly>";
+					if($name == "Convênios")
+						$resposta.="<td><center><big><input onClick=\"updateAgreement('$id_conv','$conv_numero','$dtInicio', '$dtFim');\" type='submit' id='botaoEditar'></td></tr>";
+				}
 				else
 				$resposta.="<td><center><input style='background: transparent; border: none;' name='tablefield[]' value='{$informacao}' readonly ></td>";
 			

@@ -218,6 +218,16 @@ input{
 	color: #333;
 }
 
+#updateAgreement{
+	width: 320px; 
+	background: #fff;
+	border: 1px solid #0077be;
+	border-radius: 10px;
+	margin-top: 10px;
+	padding: 10px;
+	color: #333;
+}
+
 #newInternship{
 	width: 320px; height: 180px;
 	background: #fff;
@@ -582,6 +592,13 @@ a:active{ text-decoration: none; font: 14px 'lucida sans', 'trebuchet MS', 'Taho
 	}
 
 #addNew{
+	font-family: sans-serif;
+	font-size: 15px;
+	text-align: start;
+	margin-left: 30px;
+}
+
+#updateConv{
 	font-family: sans-serif;
 	font-size: 15px;
 	text-align: start;

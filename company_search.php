@@ -44,9 +44,13 @@
 			$("#newAgreement").remove();
 			$("#linkIni").attr("href", "index.php").css("cursor","pointer");
 		}
+		else if(type == 3){
+				$("#updateAgreement").remove();
+				$("#linkIni").attr("href", "index.php").css("cursor","pointer");
+			}
 	}
 	function newAgreement(){
-		if (!$("#newAgreement").length){
+		if (!$("#newAgreement").length && !($("#updateAgreement").length)){
 			var conteudo="<div id='addNew'><h3><center>Novo Convênio<center></h3>Data de Início <input name='inicio' class='inputAtt' style='margin-right:25px; float: right' type='date'><br><br>Anos de Duração <input name='fim' type='number' style='margin-right:25px; float: right; width:145px' class='inputAtt'><br><br><font size='2'>Número do Convênio<input name='numero_conv' type='number' style='margin-right:25px; float: right; width:140px' class='inputAtt'><br><br><center><input style=' margin:10px 0 -10px -30px; float:none'class='submit' type='submit' value='OK'><br><br></center>";
 			var novoConv="<div id='newAgreement'><img onclick='fechar(2)' id='close' alt='Fechar' width='32px' src='close.png'>"+conteudo+"</div></div>";
 			$(".agreement").append(novoConv);
@@ -55,12 +59,34 @@
 		}
 		else{
 			if($("#updateData").length) fechar(2);
+			if($("#updateAgreement").length) fechar(3);
 			else fechar(1);
 			newAgreement();
 		}
 	}
+	
+	function updateAgreement(idConv, numero, dtInicio, dtFim){
+		if ((!$("#updateAgreement").length) && !($("#newAgreement").length) ){
+			var conteudo="<div id='addNew'><h3><center>Atualizar Convênio<center></h3><input type='hidden' id='id_conv' name='idConv'>Número <input  type='text'  id='numConv' name='numero'  value ='' class='inputAtt' style='margin-right:25px; float: right;'required><br><br>Data Início <input name='dataIni' id='dataIni' type='text' style='margin-right:25px; float: right' class='inputAtt' required><br><br>Data Fim <input name='dataFim' id='dataFim' type='text' style='margin-right:25px; float: right' class='inputAtt' required><br><br><center><input style='float:none; margin: 10px 0px 0 -30px' class='submit' type='submit' value='OK'><br><br></center>";
+			var novoConv="<div  id='updateAgreement'><img onclick='fechar(3)' id='close' alt='Fechar' width='32px' src='close.png'>"+conteudo+"</div></div>";
+			$(".agreement2").append(novoConv);
+			$("#numConv").attr("value", numero);
+			$("#dataIni").attr("value", dtInicio);
+			$("#dataFim").attr("value", dtFim);
+			$("#id_conv").attr("value", idConv);
+			window.scrollTo(0, window.outerHeight);
+			$("#linkIni").removeAttr("href").css("cursor","pointer");
+		}
+		else{
+			if($("#updateData").length) fechar(2);
+			if($("#updateAgreement").length) fechar(3);
+			else fechar(1);
+			updateAgreement(idConv, numero, dtInicio, dtFim)
+		}
+	}
+	
 	function updateData(){
-		if (!$("#newAgreement").length){
+		if (!($("#newAgreement").length) && !($("#updateAgreement").length) ){
 			$(".updateData").css({"visibility":"visible" , "display" : "block"});
 			$("#updateData").attr("id" , "newAgreement");
 			$("#linkIni").removeAttr("href").css("cursor","pointer");
@@ -68,6 +94,7 @@
 		}
 		else{
 			if($("#updateData").length) fechar(2);
+			if($("#updateAgreement").length) fechar(3);
 			else fechar(1);
 			updateData();
 		}
@@ -215,6 +242,7 @@
 									<div class='classname' onClick='newAgreement()' style='cursor: pointer;
 										height: 45px; padding-top: 5px; font-size: 18px; width: 200px;'>
 											Novo Convênio</div></td>
+									
 							</tr>
 						</table>
 						
@@ -227,7 +255,11 @@
 					CNPJ <input name='cnpj' class='inputAtt' value='$c_cnpj' type='text' style='margin-right:25px; float: right' ><br><br>
 					Número <input name='numero' type='text' value='$c_numero' style='margin-right:25px; float: right' class='inputAtt' ><br><br>
 					<center><input style='float:none; margin: 10px 0px -10px -30px' class='submit' type='submit' value='OK'></center><br>
-					</div></div></form>");
+					</div></div></form>
+					
+					<form class='agreement2' method='get' action='convenio_update.php' >	<input type='hidden' name='id' value='$id'>
+					</form>
+					");
 					echo("<form class='agreement' method='get' action='newAgreement.php'>
 					<input type='hidden' name='id' value='$id'></form>");
 			
