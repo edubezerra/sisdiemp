@@ -25,9 +25,9 @@
 					$day = $date[0];
 					
 					$dateEnd = explode('/',$fim);
-					$yearEnd = $date[2];
-					$monthEnd = $date[1];
-					$dayEnd = $date[0];
+					$yearEnd = $dateEnd[2];
+					$monthEnd = $dateEnd[1];
+					$dayEnd = $dateEnd[0];
 					
 					
 					if($year < 1905){
