@@ -311,8 +311,9 @@
 								Estado <select name='estado' style='margin-right:25px; float: right' class='fim' required>
 										<option value='Em andamento'>Em andamento</option>
 										<option value='Termo de Compromisso'>Terminado</option>
-										<option value='Rescisão'>Aguardando Documentos</option>
-										<option value='Aditivo'>Cancelado</option></select><br><br>
+										<option value='Aguardando Documentos'>Aguardando Documentos</option>
+										<option value='Cancelado'>Cancelado</option>
+										<option value='Aditivo'>Aditivo</option></select><br><br>
 								<center><input style='float:none; margin: 10px 0px -10px -30px' class='submit' type='submit' value='OK'></center>
 							<br></form></div></div>");
 			}
