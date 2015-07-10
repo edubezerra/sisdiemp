@@ -26,7 +26,7 @@
 			echo("<script>alert('Data(s) invalida(s)!');</script>");
 		}
 		else{
-			if(!empty($dt_rescisao)){
+			if(!empty($rescisao)){
 				$sql = "UPDATE estagio
 					SET Data_Inicio_Vigencia = '$inicio', Data_Fim_Vigencia = '$fim', Data_Rescisao = '$rescisao',
 					Estado = '$estado'
