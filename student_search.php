@@ -76,7 +76,7 @@
 			updateData(id_estagio, empresa);
 		}
 	}
-</script>
+	</script>
 
 <html>
 <head>

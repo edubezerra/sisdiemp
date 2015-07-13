@@ -360,7 +360,8 @@ function getTable4($c,$query,$name){
 				$resposta.="<td style='background-color: #193a73'><center><big><big><b><font color='white'>$colName</td>";
 			}
 		}
-		$resposta.="<td style='background-color: #193a73'><center><big><big><b><font color='white'>Editar</td></tr>";
+		$resposta.="<td style='background-color: #193a73'><center><big><big><b><font color='white'>Editar</td>";
+		$resposta.="<td style='background-color: #193a73'><center><big><big><b><font color='white'>Excluir</td></tr>";
 		while($line){					
 			$resposta.="<tr>";
 			for($i=0;$i<=$length;$i++){
@@ -391,7 +392,8 @@ function getTable4($c,$query,$name){
 					$resposta.="<td><a style='margin-left:10px;' href='company_search.php?id=$id_empresa'><div class='fonte'>{$informacao}</div></a></td>";
 				}	
 			}
-			$resposta.="<td><center><big><input onClick=\"updateData('$id_estagio','$emp_nome');\" type='submit' id='botaoEditar'></td></tr>";
+			$resposta.="<td><center><big><input onClick=\"updateData('$id_estagio','$emp_nome');\" type='submit' id='botaoEditar'></td>
+			<td><center><big><a href='excluir_estagio.php?id={$line[$keys[7]]}'><img src='delete.png' height='16' /></a></td></tr>";
 			$line = mysql_fetch_assoc($resp);
 		}
 		$resposta.="</table></div>";
