@@ -356,7 +356,9 @@ function getTable4($c,$query,$name){
 		$resposta.="<tr>";
 		for($i=0;$i<$length;$i++){
 			$colName=$keys[$i];
-			if($i != 4 && $i != 6){
+			if($i == 1 || $i == 2 || $i == 3)
+				$resposta.="<td style='background-color: #193a73; width:90px'><center><big><big><b><font color='white'>$colName</td>";
+			else if($i != 4 && $i != 6){
 				$resposta.="<td style='background-color: #193a73'><center><big><big><b><font color='white'>$colName</td>";
 			}
 		}
@@ -372,8 +374,8 @@ function getTable4($c,$query,$name){
 						$informacao = $aux[2]."/".$aux[1]."/".$aux[0];
 					}
 					if(($i == 1) || ($i == 2 ) || ($i == 3)){
-						$resposta.="<td><center><input size='5px' style='background: transparent; border: none;
-						' name='tablefield[]' value='{$informacao}' readonly></td>";
+						$resposta.="<td><center><input size='5px' style='background: transparent; border: none; ' 
+										name='tablefield[]' value='{$informacao}' readonly></td>";
 					}
 					else if($i != 4 && $i != 6 && $i!= 3 && $i !=7 ){
 						$resposta.="<td><center><input style='word-wrap: break-word; background: transparent;
@@ -399,6 +401,81 @@ function getTable4($c,$query,$name){
 		$resposta.="</table></div>";
 	}
 	return $resposta;
+}
+
+function getTableAno ($ano, $query, $name){
+	$resp = mysql_query($query); // query para descobrir quais estagios tem data inicio no ano dado
+	
+	if(!$resp){ // Checa consulta
+		echo "erro na consulta $query";
+		echo mysql_error();
+		mysql_close($c);
+		die();
+	}
+	if($line=mysql_fetch_assoc($resp))
+		$keys=array_keys($line);// Pega um array com o nome(key) das colunas que referenciam os campos da tupla pegada em $line
+	else{
+		echo("<script>alert('Nenhum estágio iniciado neste ano');</script>");
+		die();
+	}
+	$i = 0;
+	while($line){
+		$id_aluno[$i] = $line[$keys[0]]; //Salva no array id_aluno os id's dos alunos que tem dt_inicio no ano dado
+		$line = mysql_fetch_assoc($resp); 
+		$i++;
+	}
+	
+	$i = 0;
+	$sql = "select id,Nome,Matricula as 'Matrícula',Unidade,CPF from aluno where id = '$id_aluno[$i]' ORDER BY nome";
+
+	$resp = mysql_query($sql);
+	$line=mysql_fetch_assoc($resp);
+	$keys=array_keys($line);          
+	$length=count($keys);         
+
+	$resposta="<div class='CSSTableGenerator' style='width: 95%'>
+	<table>
+	<tr>
+		<td colspan='".$length."'><center>$name</td>
+	</tr>";
+	
+	$resposta.="<tr>";
+	for($i=1;$i<$length;$i++){
+		$colName=$keys[$i];
+		if($colName == "CPF") $resposta.="<td style='width:115px;background-color: #193a73'><center><big><big><b><font color='white'>$colName</td>";
+		else $resposta.="<td style='background-color: #193a73'><center><big><big><b><font color='white'>$colName</td>";
+	}
+	$resposta.="</tr>";	
+	
+	$i=0;
+	$resp = mysql_query($sql);
+	$line=mysql_fetch_assoc($resp);
+	
+
+	while($line){ // Põe linhas da tabela						
+			// Neste for() eu ponho os campos de cada coluna, porém, para acessar os valores dentro
+			// do array $line eu preciso do nome(key) que o referencia ($line[key]),
+			// e não de um número. Este nome é o nome da coluna em que ele está, na qual obtenho do array $keys.
+			
+			$id = $line['id'];
+			$resposta.="<tr>";
+			for($j=1;$j<$length;$j++){ // Põe nomes das colunas da tabela
+				$informacao=$line[ $keys[$j] ];
+				if($j==1) $resposta.="<td class='campo'><a href='student_search.php?id=$id'>{$informacao}</a></td>";
+				else $resposta.="<td><center><div class='fonte'>{$informacao}</div></td>";
+				
+			}
+			$resposta.="</tr>";
+			
+			$i++;
+			$sql = "select id,Nome,Matricula as 'Matrícula',Unidade,CPF from aluno where id = $id_aluno[$i] ORDER BY nome";
+			if(!$resp = mysql_query($sql)) break;
+			$line=mysql_fetch_assoc($resp);
+	}
+	
+	$resposta.="</table></div>";
+	return $resposta;
+
 }
 
 function getOptions($c,$query,$column){

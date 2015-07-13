@@ -106,9 +106,9 @@
 				</span>
 				<p><p><p>
 				<div id="eu">
-					<form class="form-wrapper" action="student_search.php" method="get">
+					<form class="form-wrapper" action="student_search.php" method="get" style="width:380px">
 						<input type="text" name="student" id="search" style="text-align: center" placeholder="CPF ou Nome" pattern="(^\d{3}\.?\d{3}\.?\d{3}\-?\d{2}$)|(^[\D\s]{3,300}$)" required autofocus>
-						<input type="submit" value="go" class="submit">
+						<input type="submit" value="buscar" style="width:80px" class="submit">
 					</form>
 				</div>
 			</div>
