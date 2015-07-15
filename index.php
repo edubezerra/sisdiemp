@@ -31,7 +31,8 @@
 	
 	  <div class="optionsDiv">
 			<div class="optionTitle">Aluno</div>
-			<a href="student_search.php"><div class="secondoption">Pesquisar</div></a>
+			<a href="student_search.php"><div class="option">Pesquisar</div></a>
+			<a href="pesquisar_ano.php"><div class="option">Pesquisar por ano de estágio</div></a>
 			<a href="student_import.php"><div class="secondoption">Importar estudantes</div></a>
 	  </div>
 	  
@@ -44,7 +45,7 @@
 	  
 	  <div class="optionsDiv">
 			<div class="optionTitle">Estagiários</div>
-			<a href="intern_search.php"><div class="option">Pesquisar por Curso</div></a>
+			<a href="intern_search.php"><div class="secondoption">Pesquisar por Curso</div></a>
 	  </div>
 	  
 	  <br><br>
