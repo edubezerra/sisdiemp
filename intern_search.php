@@ -10,6 +10,14 @@
 <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
 		
 <script type="text/javascript">
+	var inicio;
+	function SomenteNumero(e){
+		var tecla=(window.event)?event.keyCode:e.which;   
+		if((tecla>47 && tecla<58))  return true;
+		else if (tecla==8 || tecla==0)  return true;
+		else return false;
+    }
+	
 	function fillUnits(){
 		$.post("search.php",{what:"units"},function(data){
 			$(".campo:nth-of-type(1)").append(data);
@@ -24,13 +32,13 @@
 	function showResults(){
 		var unidade=$(".campo:nth-of-type(1)").val();
 		var curso=$(".campo:nth-of-type(2)").val();	
-
+		inicio = $("input[type=text][name=ano]").val();
 		if(unidade == "Selecione a Unidade...")
 			alert("Necessário a escolha da unidade")
 		else if(curso == "Selecione o Curso...")
 			alert("Necessário a escolha do curso");
 		
-		info={what:"intern", unit: unidade, course: curso};
+		info={what:"intern", unit: unidade, course: curso, ano: inicio};
 		
 		if(unidade!="Selecione a Unidade..." && curso!="Selecione o Curso..."){
 			if( $(".stdSearchResult").length ) $(".stdSearchResult").remove();
@@ -67,6 +75,7 @@
 					<select class="campo" style="width: 450px; text-align: center" required>
 						<option>Selecione o Curso...</option>
 					</select>
+					<input class="campo" style="width:450px; text-align:left;" id="blackPH" type="text" name="ano" placeholder='Início do estágio (Opcional)' onkeypress='return SomenteNumero(event)'>
 					<input onclick="showResults()" value="Pesquisar" style="width: 450px; font-size: 16px;" class="submit">
 				</form>
 			</div><br>

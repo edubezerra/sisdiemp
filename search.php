@@ -29,14 +29,23 @@
 	
 		$unit=$_REQUEST["unit"];
 		$course=$_REQUEST["course"];		
+		$ano = $_REQUEST["ano"];
 		
 		include "dbfunctions.php";
 		include "conection.php";
 		
-		$sql="select distinct a.id, a.nome as Nome, a.matricula as Matricula, a.curso as Curso, a.unidade as Unidade, a.cpf as CPF
+		if ($ano){
+			$sql="select distinct a.id, a.nome as Nome, a.matricula as Matricula, a.curso as Curso, a.unidade as Unidade, a.cpf as CPF
+			  from aluno a inner join estagio e on(a.id=e.id_aluno)
+			  where(a.unidade like '$unit' and a.curso like '$course' and e.Data_Inicio_Vigencia between '$ano-01-01' and '$ano-12-31')
+			  order by a.nome;";
+		}
+		else{
+			$sql="select distinct a.id, a.nome as Nome, a.matricula as Matricula, a.curso as Curso, a.unidade as Unidade, a.cpf as CPF
 			  from aluno a inner join estagio e on(a.id=e.id_aluno)
 			  where(a.unidade like '$unit' and a.curso like '$course')
 			  order by a.nome";
+		}
 		
 		$resp=getTable($c,$sql,"Estagiários",1);
 		if($resp==false) $resp="<b>Estagiários não encontrados</b>";

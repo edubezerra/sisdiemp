@@ -349,6 +349,23 @@ a:active{ text-decoration: none; font: 14px 'lucida sans', 'trebuchet MS', 'Taho
     border-radius: 3px;      
 }
 
+#blackPH::-webkit-input-placeholder { /* WebKit browsers */
+color: #000;
+font-weight: bolder;
+}
+#blackPH:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+color: #000;
+font-weight: bolder;
+}
+#blackPH::-moz-placeholder { /* Mozilla Firefox 19+ */
+color: #000;
+font-weight: bolder;
+}
+#blackPH:-ms-input-placeholder { /* Internet Explorer 10+ */
+color: #000;
+font-weight: bolder;
+}
+
 .form-wrapper .campo:focus {
     outline: 0; 
     border-color: #aaa;
