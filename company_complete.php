@@ -1,3 +1,6 @@
+
+
+
 <?php
 	if(!isset($_COOKIE["login"]))
 		echo("<script>window.location.href='login.html';</script>");
