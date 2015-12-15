@@ -107,6 +107,7 @@
 				<p><p><p>
 				<div id="eu">
 					<form class="form-wrapper" action="student_search.php" method="get" style="width:380px">
+						<label for="search">CPF ou Nome</label> <!-- Esse e um Label!-->
 						<input type="text" name="student" id="search" style="text-align: center" placeholder="CPF ou Nome" pattern="(^\d{3}\.?\d{3}\.?\d{3}\-?\d{2}$)|(^[\D\s]{3,300}$)" required autofocus>
 						<input type="submit" value="buscar" style="width:80px" class="submit">
 					</form>
