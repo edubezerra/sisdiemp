@@ -54,11 +54,16 @@
 			<p><p><p>
 			<div id="eu">
 				<form class="form-wrapper">
+					<label for="Nome ou Razão Social"> Nome/Razão social  </label>
 					<input type="text" class="campo" style="width: 350px; text-align: center" placeholder="Nome ou Razão Social" required>
+					<label>	CNPJ </label>
 					<input type="text" class="campo" style="width: 350px; text-align: center" placeholder="CNPJ" required>
+					<label>Numero da empresa </label>
 					<input type="text" class="campo" style="width: 350px; text-align: center" placeholder="Número da Empresa" required>			
+					<label> Inicio do convenio</label>
 					<input type="text" class="campo" style="width: 350px; text-align: center" placeholder="Inicio do Convênio" onfocus="(this.type='date')" required>
-					<input type="number" class="campo" style="width: 350px; text-align: center" placeholder="Anos de Duração" required>
+					<label>Anos de duração </label>
+ 					<input type="number" class="campo" style="width: 350px; text-align: center" placeholder="Anos de Duração" required>
 					<input onclick="showResults()" value="Cadastrar" style="width: 350px; font-size: 16px;" class="submit" readonly>
 				</form>
 			</div><br>
