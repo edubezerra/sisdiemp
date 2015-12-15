@@ -123,6 +123,7 @@
 		<p><p><p>
 		<div id="eu">
 			<form class="form-wrapper" action="company_search.php" >
+				<label for="search"> CNPJ/Razão Social </label>
 				<input type="text" name="company" id="search" autofocus="autofocus" style="text-align: center" placeholder="CNPJ ou Razão Social" pattern="(^[0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2}$)|(^[\D\s]{3,500}$)" required>
 				<input type="submit" value="go" class="submit">
 			</form>
