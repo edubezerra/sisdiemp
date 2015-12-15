@@ -47,6 +47,11 @@
 			<div class="optionTitle">Estagiários</div>
 			<a href="intern_search.php"><div class="secondoption">Pesquisar por Curso</div></a>
 	  </div>
+	   <div class="optionsDiv">
+			<div class="optionTitle">Ofertas de Estágio</div>
+			<a href="see_offers.php"><div class="secondoption">Visualizar Ofertas</div></a>
+			<a href="offer_signup.php"><div class="secondoption">Cadastrar Oferta</div></a>
+	  </div>
 	  
 	  <br><br>
 	</div>
