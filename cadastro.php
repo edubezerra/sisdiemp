@@ -27,8 +27,8 @@
 	unset($hasher);
 	$login = $_POST['login'];
 	$query_select = "SELECT login FROM usuarios WHERE login = '$login'";
-	$select = mysql_query($query_select);
-	$array = mysql_fetch_array($select);
+	$select = mysqli_query($c, $query_select);
+	$array = mysqli_fetch_array($select);
 	$logarray = $array['login'];
 		if($login == "" || $login == null){
 			echo"<script language='javascript' type='text/javascript'>alert('O campo login deve ser preenchido');window.location.href='cadastro.html';</script>";
@@ -41,7 +41,7 @@
  
 			}else{
 				$query = "INSERT INTO usuarios (login,senha) VALUES ('$login','$senhaHash')";
-				$insert = mysql_query($query);
+				$insert = mysqli_query($c, $query);
 				 
 				if($insert){
 					echo"<script language='javascript' type='text/javascript'>alert('Usuário cadastrado com sucesso!');window.location.href='login.html'</script>";
@@ -50,5 +50,5 @@
 				}
 			}
 		}
-	mysql_close($c);
+	mysqli_close($c);
 ?></html>
