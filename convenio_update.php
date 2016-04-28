@@ -61,7 +61,7 @@
 						$novo_convenio .= $year%100;
 						
 						$sql="update convenio set Numero = '$novo_convenio', data_inicio = '$start_date', data_fim = '$end_date' where id = $id;";
-						$res = mysql_query($sql);
+						$res = mysqli_query($c, $sql);
 						mysql_close($c);
 					}
 				}
