@@ -1,6 +1,3 @@
-
-
-
 <?php
 	if(!isset($_COOKIE["login"]))
 		echo("<script>window.location.href='login.html';</script>");
@@ -13,7 +10,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Pesquisa de Empresas</title>
+<title>Completar Cadastro de Empresas</title>
 <link href="diempStyle.css" rel="Stylesheet" type="text/css" />
 
 
@@ -63,7 +60,7 @@
 						<br>
 						<hr width=90%>
 					</div>");			
-			mysql_close($c);
+			mysqli_close($c);
 		?>
 		<!-- Fim php -->
 	</div>
