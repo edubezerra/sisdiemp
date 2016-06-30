@@ -21,10 +21,10 @@
 			Data_Rescisao = '$dt_rescisao', Estado = '$estado_est'
 			WHERE id = $est_id;";
 				
-		mysql_query($sql);
+		mysqli_query($c, $sql);
 		
 	}
 	header("location:$url");
-	mysql_close($c);
+	mysqli_close($c);
 
 ?><html>

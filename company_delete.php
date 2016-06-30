@@ -15,10 +15,10 @@
 		include("conection.php");
 		$sql = "SELECT nome FROM empresa
 				WHERE id = $id;";
-		$resp = mysql_query($sql);
-		$line = mysql_fetch_assoc($resp);
+		$resp = mysqli_query($c, $sql);
+		$line = mysqli_fetch_assoc($resp);
 		$nome = $line["nome"];
-		mysql_close($c);
+		mysqli_close($c);
 		echo("<center>
 			<table border='2' width='650px' style='text-align: center;'>
 				<tr>

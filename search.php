@@ -6,10 +6,10 @@
 		include "conection.php";
 	
 		$sql="select distinct unidade from aluno where unidade <> ''";
-		$resp=getOptions($c,$sql,"unidade");
+		$resp= getOptions($c,$sql,"unidade");
 		if($resp==false) $resp="Unidades não encontradas";
 		
-		mysql_close($c);
+		mysqli_close($c);
 	}
 	else if($_REQUEST["what"]=="courses" && $_REQUEST["unit"]){
 	
@@ -19,11 +19,11 @@
 		
 		include "conection.php";
 		
-		$sql="select distinct curso from aluno where(unidade like '$unit')";
-		$resp=getOptions($c,$sql,"curso");
+		$sql ="select distinct curso from aluno where(unidade like '$unit')";
+		$resp = getOptions($c,$sql,"curso");
 		if($resp==false) $resp="<option>Cursos não encontrados</option>";
 		
-		mysql_close($c);
+		mysqli_close($c);
 	}
 	else if($_REQUEST["what"]=="intern" && $_REQUEST["unit"]!="Selecione a Unidade..." && $_REQUEST["course"]!="Selecione o Curso..."){
 	
@@ -50,7 +50,7 @@
 		$resp=getTable($c,$sql,"Estagiários",1);
 		if($resp==false) $resp="<b>Estagiários não encontrados</b>";
 				
-		mysql_close($c);
+		mysqli_close($c);
 	}
 	else if($_REQUEST["what"]=="company" && $_REQUEST["descricao"]){
 	    $info=$_REQUEST["descricao"];

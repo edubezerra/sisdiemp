@@ -69,20 +69,21 @@
 			<p><p><p>
 			<div id="eu">
 				<form class="form-wrapper" style="width:450px">
-				<label>Unidade </label>
+				<label>Unidade </label> <br>
 					<select onchange="fillCourses(this.value)" class="campo" style="width: 450px; text-align: center" required>
 						<option>Selecione a Unidade...</option>
 					</select>
-					<label>Curso </label>
+					<label>Curso </label> <br>
 					<select class="campo" style="width: 450px; text-align: center" required>
 						<option>Selecione o Curso...</option>
 					</select>
 					<label>Data de inicio </label>
 					<input class="campo" style="width:450px; text-align:left;" id="blackPH" type="text" name="ano" placeholder='Início do estágio (Opcional)' onkeypress='return SomenteNumero(event)'>
-					<input onclick="showResults()" value="Pesquisar" style="width: 450px; font-size: 16px;" class="submit">
+					<input onclick="showResults()" value="Pesquisar" style="width: 450px; font-size: 16px;" class="submit"> <br> <br> <br>
 				</form>
 			</div><br>
 		</div>
+		<a href='javascript:window.history.go(-1)'><---Voltar  </a>	<br>
 	</div>		
 </center>
 </body>

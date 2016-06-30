@@ -7,8 +7,26 @@
 		$name=$_REQUEST["nome"];
 		$code=$_REQUEST["cnpj"];
 		$comp = $_REQUEST["comp"];
+		$email = $_REQUEST["email"];
 		$start=$_REQUEST["start"];
 		$end=$_REQUEST["fim"];
+		
+	// VALIDAÇÃO do email
+		function validaemail($email){
+	//verifica se e-mail esta no formato correto de escrita,parte do usuario
+	if (!ereg('^([a-zA-Z0-9.-_])*([@])([a-z0-9]).([a-z]{2,3})',$email)){
+		$mensagem='E-mail Inv&aacute;lido!';
+		return $mensagem;
+    }
+    else{
+		//Valida o dominio
+		$dominio=explode('@',$email);
+		if(!checkdnsrr($dominio[1],'A')){
+			echo ("<script>alert('E-mail Inv&aacute;lido!')</script>");
+			die();
+		}
+	}
+}
 		
 		// VALIDAÇÃO CNPJ INICIO
 		
@@ -59,11 +77,14 @@
 			die();
 		}
 
-		
-		if(!preg_match('/(^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$)/',$start)){
+		if(!preg_match( '(^\d{1,2}/\d{1,2}/\d{4}$)', $start )){
 			echo("<script>alert('Data de Início do Convênio inválida!')</script>");
 			die();
 		}
+		//if(!preg_match('/(^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$)/',$start)){
+		//	echo("<script>alert('Data de Início do Convênio inválida!')</script>");
+		//	die();
+		//}
 		
 		if((!preg_match('/(^[\d]{1,2}$)/',$end))){
 			echo("<script>alert('Duração do Convênio inválida!')</script>");
@@ -114,7 +135,7 @@
 		$idEmpresa = $line["id"];
 		
 		if(querySql($c, $sql, "find")==false){
-			$sql="insert into empresa(nome, numero, cnpj) values('$name','$comp','$cnpj')";
+			$sql="insert into empresa(nome, numero, cnpj,email) values('$name','$comp','$cnpj','$email')";
 			if(querySql($c, $sql, "create")==true){
 				$numeroConvenio=$comp."/".$start_year_2;
 				
@@ -149,7 +170,7 @@
 				</a>
 			</div>";
 		}
-		mysql_close($c);
+		mysqli_close($c);
 		echo("<script>window.location.href = 'company_search.php?id=$idEmpresa';</script>");
 	}	
 ?></html>

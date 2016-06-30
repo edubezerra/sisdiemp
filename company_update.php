@@ -72,12 +72,12 @@
 	if($cnpj_valido){	
 		if(!empty($numero)){
 			$sql = "UPDATE empresa SET nome = '$nome', cnpj = '$cnpj', Numero = $numero WHERE id = $id;";
-			mysql_query($sql);
+			mysqli_query($c, $sql);
 			echo("<script>alert('Atualizações realizadas com sucesso');</script>");
 		}
 		else{
 				$sql = "UPDATE empresa SET nome = '$nome', cnpj = '$cnpj' WHERE id = $id;";
-				mysql_query($sql);	
+				mysqli_query($c, $sql);	
 				echo("<script>alert('CNPJ atualizado');</script>");
 		}
 	}
@@ -85,14 +85,14 @@
 		if(!empty($numero)){
 			echo("<script>alert('Cnpj inválido! Número salvo com sucesso');</script>");
 			$sql = "UPDATE empresa SET nome = '$nome', Numero = $numero WHERE id = $id;";
-			mysql_query($sql);
+			mysqli_query($c, $sql);
 		}
 		else{
 			echo("<script>alert('Cnpj inválido!');</script>");
 			$sql = "UPDATE empresa SET nome = '$nome' WHERE id = $id;";
-			mysql_query($sql);
+			mysqli_query($c, $sql);
 		}
 	}
-	mysql_close($c);
+	mysqli_close($c);
 	echo("<script>window.location.href = '$url';</script>");
 ?></html>

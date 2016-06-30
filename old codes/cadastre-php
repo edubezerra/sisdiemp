@@ -1,0 +1,61 @@
+<?php
+	if(!isset($_COOKIE["login"]))
+		echo("<script>window.location.href='login.html';</script>");
+	else{
+		include_once("dbfunctions.php");
+		include_once("conection.php");
+
+		$permission = mysql_query("SELECT isAdmin FROM usuarios WHERE login = '$_COOKIE[login]'") or die("erro ao selecionar");
+
+		if (!$permission) {
+		    echo "Não foi possível executar a consulta ($sql) no banco de dados: " . mysql_error();
+		    exit;
+		}
+
+		if (mysql_num_rows($permission) <= 0) {
+			echo "Não foram encontradas linhas, nada para mostrar, assim eu estou saindo";
+		    exit;
+		}
+
+		$row = mysql_fetch_assoc($permission);
+		$isAdmin = $row["isAdmin"];
+
+		if($isAdmin == 0){
+			echo"<script language='javascript' type='text/javascript'>window.location.href='index_aluno.php';</script>";
+		}
+	}
+?>
+<html>
+<head>
+<title>Cadastro de Aluno</title>
+<link href="diempStyle.css" rel="Stylesheet" type="text/css" />
+<meta charset="UTF-8">
+</head>
+<body>
+	<center>
+		<div class="main">
+			<div class="logo">
+				<a href="index.php">
+					<img id="cefetimg" src="logoCefet.gif" alt="LogoCefet">
+				</a>
+			</div>Sistema Diemp
+		</div>
+		
+		<div class="box">
+		  <div class="intro">
+			<span id="welcome">
+				Cadastro de Aluno
+			</span>
+		  </div>
+		
+		  <form style="margin-top:10px;" class="form-wrapper" method="POST" action="cadastro.php">
+				<label class="cad">Matr&iacute;cula:</label><br><input style="margin-left:20px" class="campo" type="text" name="login" id="login"><br><br><br>
+				<input type="hidden" name="senha" id="senha" value="diemp-aluno">
+				<input type="submit" value="cadastrar" id="cadastrar" class="button" name="cadastrar" style="width: 250px; margin:20px 0 -20px 0; float:none;font-size: 16px;">
+			 <br><br></form>
+		</div>
+	
+	</center>
+</body>
+
+</html>

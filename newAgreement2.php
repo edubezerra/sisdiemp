@@ -12,13 +12,13 @@
 			include("conection.php");
 			include_once("dbfunctions.php");
 			$sql= "SELECT id FROM empresa WHERE cnpj = '$cnpj';";
-			$res = mysql_query($sql);
+			$res = mysqli_query($c, $sql);
 			if(!$res){
 				echo("<script>alert('CNPJ inexistente no sistema!');</script>");
-				mysql_close($c);
+				mysqli_close($c);
 				echo("<script>window.location.href = '$url';</script>");
 			}
-			$line = mysql_fetch_assoc($res);
+			$line = mysqli_fetch_assoc($res);
 			$empresa = $line['id'];
 			
 			$start_date = explode('-',$inicio);
@@ -33,7 +33,7 @@
 						
 			if($start_year > $end_year){
 				echo("<script>alert('Data(s) invalida(s)!');</script>");
-				mysql_close($c);
+				mysqli_close($c);
 				echo("<script>window.location.href = '$url';</script>");
 			}
 			else{
@@ -43,10 +43,10 @@
 				if($line){
 					$sql="insert into estagio(data_inicio_vigencia, data_fim_vigencia, 
 						data_rescisao,id_aluno,id_convenio, Estado) values('$inicio','$fim','0000-00-00','$id','$id_convenio', '$estado')";
-					$res = mysql_query($sql);	
+					$res = mysqli_query($c, $sql);	
 				}
 			}
-			mysql_close($c);
+			mysqli_close($c);
 		
 		}
 		else{

@@ -22,17 +22,33 @@
 				$curso = $data[3];
 				$cpf = $data[4];
 				$unidade = $data[5];
-				$sql = "select Matricula from aluno use index (idx_Matricula) where Matricula = '$matricula';";
-				if(!mysql_query( $sql )){
-					$query = "INSERT INTO aluno(Nome, Matricula, Curso, Unidade, Cpf) VALUES('$nome','$matricula','$curso','$unidade','$cpf');";
-					if(!mysql_query($query)) $erro++;
-					$cont++;
+				$telefone =  $data[10]."|".$data[13];
+				$endereco = $data[14].$data[15].$data[16].$data[17].$data[18].$data[19].$data[21].$data[22];
+				$email = $data[24];
+				$data_nasc = $data[25];
+				if($last_matricula!=$matricula){
+					echo "Nome = $nome      ";
+					echo "Matricula = $matricula       ";
+					echo "Curso = $curso    ";
+					echo "Cpf = $cpf     ";
+					echo "Unidade = $unidade       ";
+					echo "Telegone = $telefone     ";
+					echo "Endereco = <br> $endereco      ";
+				
+					$sql = "select Matricula from aluno where Matricula = '$matricula';";
+					$q= mysqli_query($c, $sql);
+					if(!$q){
+						$query = "INSERT INTO aluno(Nome, Matricula, Curso, Unidade, Cpf, telefone, email, data_nasc, endereco) VALUES('$nome','$matricula','$curso','$unidade','$cpf','$telefone', '$email', '$data_nasc', '$endereco');";
+						if(!mysqli_query($c, $query)) $erro=1;
+						$cont++;
+					}
+					else{                                                                                            //, telefone='$telefone', email = '$email', data_nasc = '$data_nasc', endereco = '$endereco'
+						$query2 = "UPDATE aluno SET Nome = '$nome', Matricula = '$matricula', Curso = '$curso', Unidade = '$unidade', Cpf = '$cpf' where Matricula = '$matricula'";
+						if(!mysqli_query($c, $query2)) $erro=2;
+						$contUp++;
+					}
 				}
-				else{
-					$query = "UPDATE aluno SET Nome = '$nome', Matricula = '$matricula', Curso = '$curso', Unidade = '$unidade', Cpf = '$cpf' where Matricula = '$matricula'";
-					if(!mysql_query($query)) $erro++;
-					$contUp++;
-				}
+				$last_matricula = $matricula;
 				if($erro > 0)
 					break;
 			}
@@ -41,9 +57,11 @@
 				echo("<script>alert('$contUp updates no banco. $cont inserções');</script>");} 
 			else { 
 				mysqli_rollback($c); 
+				echo $erro;
 				echo("<script>alert('Erro na importação de dados. Nenhum dado foi importado');</script>");
+				
 			}
 		}
 	} 
-	echo("<script>window.location.href = 'index.php';</script>");
+	//echo("<script>window.location.href = 'index.php';</script>");
 ?><html>

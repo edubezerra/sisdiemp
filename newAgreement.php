@@ -53,8 +53,8 @@
 					
 					include("conection.php");
 					$sql="insert into convenio(numero, id_empresa, data_inicio,data_fim) values('$novo_convenio','$id','$inicio','$end_date')";
-					$res = mysql_query($sql);
-					mysql_close($c);
+					$res = mysqlo_query($c, $sql);
+					mysqli_close($c);
 				}
 			}
 		}

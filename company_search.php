@@ -13,8 +13,8 @@
 		$pag = 1;
 	if(isset($id)){
 		$sql = "select nome, numero, cnpj from empresa where id like $id";
-		$res = mysql_query($sql);
-		$line = mysql_fetch_assoc($res);
+		$res = mysqli_query($c,$sql);
+		$line = mysqli_fetch_assoc($res);
 		$c_nome = $line['nome'];
 		$c_cnpj = $line['cnpj'];
 		$c_numero = $line['numero'];
@@ -123,11 +123,13 @@
 		<p><p><p>
 		<div id="eu">
 			<form class="form-wrapper" action="company_search.php" >
-				<label for="search"> CNPJ/Razão Social </label>
+				<label for="search"> CNPJ/Razão Social </label> <br>
 				<input type="text" name="company" id="search" autofocus="autofocus" style="text-align: center" placeholder="CNPJ ou Razão Social" pattern="(^[0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2}$)|(^[\D\s]{3,500}$)" required>
-				<input type="submit" value="go" class="submit">
+				<input type="submit" value="go" class="submit" style="float: left"> <br>
 			</form>
+			<br>
 		</div>
+		<a href='javascript:window.history.go(-1)'><---Voltar  </a>	<br>
 	</div>
 
 	<!-- Inicio php -->
@@ -137,8 +139,8 @@
 		}
 		if(isset($id)){
 				$sql="select id, nome as Nome, numero as Numero, cnpj as CNPJ from empresa where id = $id";
-				$res = mysql_query($sql);
-				$num_rows = mysql_num_rows($res);
+				$res = mysqli_query($c, $sql);
+				$num_rows = mysqli_num_rows($res);
 		}
 		else{
 			$nome = $compania;
@@ -149,13 +151,13 @@
 				$nome = 5;
 				
 				$sql="select id, nome as Nome, numero as Numero from empresa where cnpj= '$c_cnpj'";
-				$res = mysql_query($sql);
-				$num_rows = mysql_num_rows($res);
+				$res = mysqli_query($c, $sql);
+				$num_rows = mysqli_num_rows($res);
 				if($num_rows <= 0){
 					echo("Não há nenhuma empresa com CNPJ = \"$compania\".");
 					die();
 				}		
-				$line = mysql_fetch_assoc($res);
+				$line = mysqli_fetch_assoc($res);
 				$id = $line['id'];
 				$c_nome = $line['Nome'];
 				$c_numero = $line['Numero'];
@@ -165,13 +167,13 @@
 				$inicio = (($pag* $limite)- $limite);
 				$sql = "select id, nome as Nome, numero as Numero, cnpj as CNPJ from empresa where Nome like '%$compania%' ORDER BY nome"; 
 				$sql_pag= "$sql limit $inicio, $limite";
-				$res = mysql_query($sql);
-				$num_rows = mysql_num_rows($res);
+				$res = mysqli_query($c, $sql);
+				$num_rows = mysqli_num_rows($res);
 			}
 			if($nome == $compania){
 				if($num_rows == 1){
 					$tmp = true;
-					$line = mysql_fetch_assoc($res);
+					$line = mysqli_fetch_assoc($res);
 					$c_cnpj = $line["CNPJ"];
 					$c_numero = $line["Numero"];
 					$id = $line["id"];
@@ -182,11 +184,11 @@
 				//	echo($resp);
 				}
 				else{
-					$line = mysql_fetch_assoc($res);
+					$line = mysqli_fetch_assoc($res);
 					if(!$line)
 						echo("Não há nenhuma empresa com \"$compania\" em parte da sua Razão Social.");
 					else{
-						mysql_close($c);
+						mysqli_close($c);
 						include("conection.php");
 						$resp=getTableCS($c,$sql_pag,"Empresas",2, $num_rows, $compania, $pag, $limite);
 						echo($resp);
@@ -265,7 +267,7 @@
 					<input type='hidden' name='id' value='$id'></form>");
 			
 			echo("</div>");
-			mysql_close($c);
+			mysqli_close($c);
 		}	
 	?>	
 	<!-- Fim php -->

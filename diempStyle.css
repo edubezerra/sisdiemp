@@ -1,26 +1,22 @@
+
 body{
 	background: #CCC;
 	
 	margin: 0px;
 	padding: 0px;
 }
-
+br{
+	clear: left;
+}
 h3{
 	font-size: 22px;
 }
-
 label{
 	font: 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
 	float: left;
 	font-weight: bold;
 	color: #0077be;
 }
-label.hora {
-
-    display: inline-block;
-    width: 100px;
-}
-
 div.main{
 	width: 100%; height: 46px;
 	min-width: 600px;
@@ -32,6 +28,7 @@ div.main{
 	position: fixed;
 	z-index:1;
 }
+	
 .logo{
 	background: #fff;
 	width: 45px; height: 45px;
@@ -58,7 +55,7 @@ div.main{
 }
 .stdIntro{
 	background: #fff;
-	width: 525px; min-height: 130px;
+	width: 1050px; min-height: 130px;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;	
 	box-shadow: -0px 1.5px 5px #ccc;
@@ -81,6 +78,9 @@ input{
 	text-align: center;
 	width:100%;
 	font:  14px 'lucida sans', 'trebuchet MS', 'Tahoma';
+	float: right;
+	margin-left: 10px;
+;
 }
 
 .fonte{
@@ -305,8 +305,9 @@ a:active{ text-decoration: none; font: 14px 'lucida sans', 'trebuchet MS', 'Taho
 }
 
 .form-wrapper {
-    width: 350px;
-    padding: 8px;
+    width: 650px;
+    padding: 10px;
+	padding-top: 10px
     overflow: hidden;
     border-width: 1px;
     border-style: solid;
@@ -640,6 +641,17 @@ font-weight: bolder;
 	margin: 0;
 	border: 0;
 	background: transparent url(confirma.png) no-repeat center top;
+	overflow: hidden;
+	cursor: pointer;
+	text-indent: -1000em;
+}
+#botaoDeletar{
+	width: 16px;
+	height: 16px;
+	padding: 0 0 0; 
+	margin: 0;
+	border: 0;
+	background: transparent url(delete2.png) no-repeat center top;
 	overflow: hidden;
 	cursor: pointer;
 	text-indent: -1000em;

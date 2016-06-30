@@ -42,7 +42,7 @@
 	}	
 	function newAgreement(){
 		if (!$("#newAgreement").length){
-			var conteudo="<div id='addNew'><h3><center>Novo EstÃ¡gio</center></h3> CNPJ <input style='width:180px; margin-right:24px; float:right' name='cnpj' type='text' class='inputAtt'required><br><br>Data de Início <input name='inicio' class='inputAtt' style='margin-right:25px; float: right;' type='date' required><br><br>Data de Fim<input name='fim' type='date' style='margin-right:25px; float: right;' class='inputAtt' required><br><br> Estado <select name='estado' style='margin-right:25px; float: right' class='fim' required><option value='Em andamento'>Em andamento</option><option value='Terminado'>Terminado</option><option value='Aguardando Documentos'>Aguardando Documentos</option><option value='Cancelado'>Cancelado</option></select><br><br><center><input style='float:none; margin: 10px 0px -10px -30px' class='submit' type='submit' value='OK'></center><br>";
+			var conteudo="<div id='addNew'><h3><center>Novo Estágio</center></h3> CNPJ <input style='width:180px; margin-right:24px; float:right' name='cnpj' type='text' class='inputAtt'required><br><br>Data de In�cio <input name='inicio' class='inputAtt' style='margin-right:25px; float: right;' type='date' required><br><br>Data de Fim<input name='fim' type='date' style='margin-right:25px; float: right;' class='inputAtt' required><br><br> Estado <select name='estado' style='margin-right:25px; float: right' class='fim' required><option value='Em andamento'>Em andamento</option><option value='Terminado'>Terminado</option><option value='Aguardando Documentos'>Aguardando Documentos</option><option value='Cancelado'>Cancelado</option></select><br><br><center><input style='float:none; margin: 10px 0px -10px -30px' class='submit' type='submit' value='OK'></center><br>";
 			var novoConv="<div id='newAgreement'><img onclick='fechar(2)' id='close' alt='Fechar' width='32px' src='close.png'>"+conteudo+"</div></div>";
 			$(".agreement").append(novoConv);
 			window.scrollTo(0, window.outerHeight);
@@ -97,30 +97,31 @@
 		<div class="box">
 			<div class="stdIntro">
 				<span id="welcome">
-					Pesquisa de estagiÃ¡rios por ano
+					Pesquisa de estagiários por ano
 				</span>
 				<p><p><p>
 				<div id="eu">
 					<form class="form-wrapper" action="pesquisar_ano.php" method="get" style="width:380px">
-						<label for="search"> Ano de inÃ­cio de estÃ¡gio</label>
-						<input type="number" name="ano" id="search" style="text-align: center" placeholder="Ano de inÃ­cio de estÃ¡gio" required autofocus>
-						<input type="submit" value="buscar" style="width:80px" class="submit">
+						<label for="search"> Ano de início de estágio</label>
+						<input type="number" name="ano" id="search" style="text-align: center" placeholder="Ano de início de estágio" required autofocus> <br>
+						<input type="submit" value="buscar" style="width:80px" class="submit"> <br> <br>
 					</form>
 				</div>
+				<a href='javascript:window.history.go(-1)'>Voltar <--- </a>	<br> 
 			</div>
 			<!-- Inicio php -->
 			<?php
-			if(!$ano){ // Se nÃ£o tiver nenhuma pesquisa
+			if(!$ano){ // Se não tiver nenhuma pesquisa
 				die();
 			}
 			if($ano <1000 || $ano >  date('Y'))	// se data menor que 1000 ou maior que esse ano
 				die();
 										
 			$sql = "select id_aluno from estagio where Data_Inicio_Vigencia between '$ano-01-01' and '$ano-12-31' ";
-			$table = getTableAno($ano, $sql, "Alunos");
+			$table = getTableAno($c, $ano, $sql, "Alunos");
 			echo($table);
 
-			mysql_close($c);	
+			mysqli_close($c);	
 			?>
 			<!-- Fim php -->
 		</div> 
