@@ -38,9 +38,9 @@
 					Estado = '$estado'
 					WHERE id = $id_estagio;";
 			}
-			mysql_query($sql);
+			mysqli_query($c, $sql);
 		}
-		mysql_close($c);
+		mysqli_close($c);
 	}
 	echo("<script>window.location.href = '$url';</script>");
 ?></html>
