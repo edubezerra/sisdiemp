@@ -105,6 +105,6 @@
 		
 		
 	}
-	mysql_close($c);
+	mysqli_close($c);
 	echo $result;
 ?></html>
