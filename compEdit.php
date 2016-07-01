@@ -51,21 +51,21 @@
 			// VALIDAÇÃO CNPJ FIM
 			
 			$sql = "select Nome from empresa where Cnpj = '$code'";
-			$query = mysql_query($sql);
-			$num_rows = mysql_num_rows($query);
+			$query = mysqli_query($c, $sql);
+			$num_rows = mysqli_num_rows($query);
 			if(($cnpj[12] != $d1)||($cnpj[13] != $d2)||(!preg_match('/(^[\d]{14}$)/',$cnpj)) || ($num_rows > 0)){
 				if($num_rows >0)
 					echo("<script>alert('Este CNPJ já está cadastrado no sistema');</script>");
 				else
 					echo("<script>alert('CNPJ inválido');</script>");
 				$sql = "update empresa set Nome = '$comp', Numero = '$number'  where id = $id";
-				mysql_query($sql);
+				mysqli_query($c, $sql);
 			}
 			else{
 				$sql="update empresa set Nome = '$comp', Cnpj = '$code', Numero= '$number'  where id = $id";
-				mysql_query($sql);
+				mysqli_query($c, $sql);
 			}
-		mysql_close($c);
+		mysqli_close($c);
 	}
 	echo("<script>window.location.href = '$url';</script>");
 ?></html>
