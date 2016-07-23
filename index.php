@@ -54,7 +54,7 @@
 	
 	  <div class="optionsDiv">
 			<div class="optionTitle">Aluno</div>
-			<a href="student_search.php"><div class="option">Pesquisar</div></a>
+			<a href="student_search_new.php"><div class="option">Pesquisar</div></a>
 			<a href="pesquisar_ano.php"><div class="option">Pesquisar por ano de estágio</div></a>
 			<a href="student_import.php"><div class="secondoption">Importar estudantes</div></a>
 	  </div>

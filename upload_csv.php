@@ -24,28 +24,33 @@
 
 		set_time_limit(300);
 
+		$COD_CURSO = 0;
+		
 		while (($dados = fgetcsv($objeto, 1000, ",")) !== FALSE) {	
 			
 			for ($i=0; $i < count($dados); $i++) { 
 				$dados[$i] = mysql_escape_string($dados[$i]);
 			}
 
-			$data = strtotime(date_converter($dados[27]));
+			
 			$dataForm = date_converter($dados[27]);
 
-			$sql = "SELECT ID FROM ALUNO WHERE MATRICULA = '$dados[1]'";
+			$sql = "SELECT ID FROM Pessoa WHERE CPF = '$dados[4]'";
 
 			$var = mysql_query($sql) or die(mysql_error());
 
-			if(mysql_num_rows($var) == 0){
+			$result = mysql_fetch_assoc($var);
+
+			$existe = count($result["ID"]);
+
+			if($existe == 0){
 				$sql = "SELECT ID FROM CURSO WHERE COD_CURSO =  '$dados[2]'";
 				$var = mysql_query($sql) or die(mysql_error());
 				$var = mysql_fetch_array($var);
-				$var = $var["ID"];
-				
-				$sql = "INSERT INTO ALUNO(
+				$COD_CURSO = $var["ID"];
+
+				$sql = "INSERT INTO PESSOA(
 					NOME,
-					MATRICULA,
 					CPF,
 					SITUACAO,
 					DDI_RESIDENCIAL,
@@ -68,14 +73,11 @@
 					UF,
 					PAIS,
 					EMAIL,
-					DATA_NASC,
-					DT_NASC,
-					ID_CURSO
+					DT_NASC
 				) VALUES (
 					'$dados[0]',
-					'$dados[1]',
-					'$dados[2]',
-					'$dados[5]',
+					'$dados[4]',
+					'$dados[6]',
 					'$dados[7]',
 					'$dados[8]',
 					'$dados[9]',
@@ -96,15 +98,13 @@
 					'$dados[24]',
 					'$dados[25]',
 					'$dados[26]',
-					'$data',
-					'$dataForm',
-					'$var'
+					'$dataForm'
 				);";
 			}else{
-				$sql = "UPDATE ALUNO SET
+				$sql = "UPDATE PESSOA SET
 						NOME = '$dados[0]',
-						CPF = '$dados[2]',
-						SITUACAO = '$dados[5]',
+						CPF = '$dados[4]',
+						SITUACAO = '$dados[6]',
 						DDI_RESIDENCIAL = '$dados[7]',
 						DDD_RESIDENCIAL = '$dados[8]',
 						FONE_RESIDENCIAL = '$dados[9]',
@@ -125,14 +125,30 @@
 						UF = '$dados[24]',
 						PAIS = '$dados[25]',
 						EMAIL = '$dados[26]',
-						DATA_NASC = '$data',
 						DT_NASC = '$dataForm'
 					WHERE 
-						MATRICULA = '$dados[1]'";
+						CPF = '$dados[4]'";
 			}
 
-			if($dados[0] != 'NOME_ALUNO')
-				mysql_query($sql) or die(mysql_error());
+			if($dados[0] != 'NOME_ALUNO'){
+				if($existe == 0){
+					mysql_query($sql) or die(mysql_error());
+					$sql = "INSERT INTO PESSOA__CURSO(
+							ID_PESSOA,
+							ID_CURSO,
+							MATRICULA)
+							SELECT
+							p.id,
+							'$COD_CURSO',
+							'$dados[1]'
+							FROM pessoa p
+							WHERE CPF = '$dados[4]'
+							;";
+					mysql_query($sql) or die(mysql_error());
+				}else{
+					mysql_query($sql) or die(mysql_error());
+				}
+			}
 		}
 
 		fclose($objeto);
