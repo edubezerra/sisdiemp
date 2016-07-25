@@ -232,22 +232,6 @@
 					
 					$line = mysqli_fetch_assoc($res);
 				}
-				$nulo = '(null)';
-				if(($c_cpf == '')||($c_cpf == $nulo)){
-					$c_cpf = "---";					//Cpf não cadastrado;
-				 }
-				 if (($c_telefone == '')||($c_telefone)){
-					 $c_telefone = "---"; 			 //telefone inesistente 
-				 }
-				 if (($c_endereco == '')||($c_endereco)){
-					 $c_endereco = "---";			 //endereco inesistente
-				 }
-				 if (($c_email == '')||($c_email)){
-					 $c_email = "---"; 				//email inesistente
-				 }
-				 if (($c_data_nasc == '')||($c_data_nasc)){
-					 $c_data_nasc = "---";			 //data_nasc inesistente
-				 }
 					 echo("<form method='GET' action='stdEdit.php'>
 						 <div class='stdSearchResult'>
 							
