@@ -47,7 +47,7 @@
 	}	
 	function newAgreement(){
 		if (!$("#newAgreement").length){
-			var conteudo="<div id='addNew'><h3><center>Novo Estágio</center></h3> CNPJ <input style='width:180px; margin-right:24px; float:right' name='cnpj' type='text' class='inputAtt'required><br><br>Data de Início <input name='inicio' class='inputAtt' style='margin-right:25px; float: right;' type='date' required><br><br>Data de Fim<input name='fim' type='date' style='margin-right:25px; float: right;' class='inputAtt' required><br><br> Estado <select name='estado' style='margin-right:25px; float: right' class='fim' required><option value='Em andamento'>Em andamento</option><option value='Terminado'>Terminado</option><option value='Aguardando Documentos'>Aguardando Documentos</option><option value='Cancelado'>Cancelado</option></select><br><br><center><input style='float:none; margin: 10px 0px -10px -30px' class='submit' type='submit' value='OK'></center><br>";
+			var conteudo="<div id='addNew'><h3><center>Novo Estágio</center></h3> CNPJ <input style='width:180px; margin-right:24px; float:right' name='cnpj' type='text' class='inputAtt'required><br><br>Data de Início <input name='inicio' class='inputAtt' style='margin-right:25px; float: right;' type='date' required><br><br>Data de Fim<input name='fim' type='date' style='margin-right:25px; float: right;' class='inputAtt' required><br><br> Estado <select name='estado' style='margin-right:25px; float: right' class='fim' required><option value='Em andamento'>Em andamento</option><option value='Terminado'>Terminado</option><option value='Aguardando Documentos'>Aguardando Documentos</option><option value='Cancelado'>Cancelado</option><option value='Aditivo'>Aditivo</option></select><br><br><center><input style='float:none; margin: 10px 0px -10px -30px' class='submit' type='submit' value='OK'></center><br>";
 			var novoConv="<div id='newAgreement'><img onclick='fechar(2)' id='close' alt='Fechar' width='32px' src='close.png'>"+conteudo+"</div></div>";
 			$(".agreement").append(novoConv);
 			window.scrollTo(0, window.outerHeight);
@@ -107,22 +107,24 @@
 				<p><p><p>
 				<div id="eu">
 					<form class="form-wrapper" action="student_search.php" method="get" style="width:380px">
-						<label for="search">CPF ou Nome</label> <!-- Esse e um Label!-->
-						<input type="text" name="student" id="search" style="text-align: center" placeholder="CPF ou Nome" pattern="(^\d{3}\.?\d{3}\.?\d{3}\-?\d{2}$)|(^[\D\s]{3,300}$)" required autofocus>
-						<input type="submit" value="buscar" style="width:80px" class="submit">
+						<label for="search" style="padding-left: 10px">CPF ou Nome</label>
+						<input type="text" name="student" id="search" style="text-align: center" placeholder="CPF ou Nome" pattern="(^\d{3}\.?\d{3}\.?\d{3}\-?\d{2}$)|(^[\D\s]{3,300}$)" required autofocus><br>
+						<input type="submit" value="buscar" style="float: center; width:80px" class="submit"> <br> <br>
 					</form>
 				</div>
+				<a href='javascript:window.history.go(-1)'>Voltar <--- </a>	<br>
 			</div>
+				
+	
 			<!-- Inicio php -->
 			<?php
-			
 			if((!$aluno)&&(!$id)){ // Se não tiver nenhuma pesquisa
 				die();
 			}
 			
 			$nome = $aluno;
 			$tmp = false;
-			
+			$id = 0;
 			if(preg_match('/^[0-9]{11}$/', $cpf)){
 				$nome = 5;
 				if((preg_match('/^[0-9]{11}$/', $cpf))){
@@ -142,28 +144,30 @@
 					$variavel .= $cpf[9];
 					$variavel .= $cpf[10];
 					
-					$sql2 = "SELECT id from aluno WHERE cpf = '$variavel'";
-					$res2 = mysql_query($sql2);
-					$line2 = mysql_fetch_assoc($res2);
+					$sql2 = "SELECT id as id from aluno WHERE cpf = '$variavel'";
+
+					$res2 = mysqli_query($c, $sql2);
+					$line2 = mysqli_fetch_assoc($res2);
 					
 					$id = $line2["id"];
 				}
 			}
-
+			$idpessoa = $id;
 			if($nome == $aluno || isset($id) ){	
 				if(isset($id)){
-					$sql = "select id,Nome,Matricula as 'Matrícula',Unidade,CPF from aluno where id = '$id' ORDER BY nome";
+					$sql = "select id,Nome as nome,curso as curso, Matricula as 'matricula',Unidade as unidade,CPF as cpf, telefone as telefone, endereco as endereco, email as email, data_nasc as nascimento from aluno where id = '$id' ORDER BY nome";
 				}
 				else{
-					$sql = "select id,Nome,Matricula as 'Matrícula',Unidade,CPF from aluno where nome like '%$aluno%' ORDER BY nome";
+					$sql = "select id,Nome as nome,curso as curso, Matricula as 'matricula',Unidade as unidade,CPF as cpf, telefone as telefone, endereco as endereco, email as email, data_nasc as nascimento from aluno where nome like '%$aluno%' ORDER BY nome";
 				}
-				$res = mysql_query($sql);
+
+				$res = mysqli_query($c,$sql);
 			
-				$num_rows = mysql_num_rows($res);
+				$num_rows = mysqli_num_rows($res);
 				
 				if($num_rows == 1){
 					$tmp = true;
-					$line = mysql_fetch_assoc($res);
+					$line = mysqli_fetch_assoc($res);
 					$cpf = $line["cpf"];
 					$id = $line["id"];
 					$permit = $id;
@@ -183,9 +187,10 @@
 			}
 			if(($nome != $aluno)||($tmp == true)||(($cpf == '')&&(isset($id)))){
 				if((($cpf == '')&&(isset($id)))){
-					$sql="select nome, cpf, matricula, curso, unidade from aluno where id = $id";
+					$sql="select nome as nome, cpf as cpf, matricula as matricula, curso as curso, unidade as unidade from aluno where id = $id";
 				}
 				else{
+
 					if($num_rows != 1){
 						$temp[0] = $cpf[0];
 						$temp[1] = $cpf[1];
@@ -201,7 +206,7 @@
 						$temp[11] = '-';
 						$temp[12] = $cpf[9];
 						$temp[13] = $cpf[10];
-						
+											
 						$my_string = $temp;
 						foreach ($my_string as $stringArray)
 						{
@@ -209,10 +214,10 @@
 						}
 						$cpf = $stringArrayF;
 					}
-					$sql="select id, nome, cpf, matricula, curso, unidade from aluno where id = '$id'";
+					$sql="select id as id, nome as nome, cpf as cpf, matricula as matricula, curso as curso, unidade as unidade, telefone as telefone, endereco as endereco, email as email, data_nasc as nascimento from aluno where id = '$idpessoa'";
 				}
-				$res = mysql_query($sql);
-				$line = mysql_fetch_assoc($res);
+				$res = mysqli_query($c, $sql);
+				$line = mysqli_fetch_assoc($res);
 				
 				while($line){
 					$c_nome = $line["nome"];
@@ -220,55 +225,79 @@
 					$c_matricula = $line["matricula"];
 					$c_curso = $line["curso"];
 					$c_unidade = $line["unidade"];
+					$c_telefone = $line["telefone"];
+					$c_endereco = $line["endereco"];
+					$c_email = $line["email"];
+					$c_data_nasc = $line["nascimento"];
 					
-					$line = mysql_fetch_assoc($res);
+					$line = mysqli_fetch_assoc($res);
 				}
-				$nulo = '(null)';
-				if(($c_cpf == '')||($c_cpf == $nulo)){
-					$c_cpf = "Não cadastrado";
-				 }
-				 
-				 echo("<form method='GET' action='stdEdit.php'>
-					 <div class='stdSearchResult'>
-						<br>
-						<div class='descricao'>
-							<div>
-								<div class='what'>Nome:</div>
-								<input name='std' class='info' type='text' value='$c_nome' readonly>
-							</div>
+					 echo("<form method='GET' action='stdEdit.php'>
+						 <div class='stdSearchResult'>
 							
-							<div class='infoline'>
-								<div class='what'>CPF:</div>
-								<input class='info' type='text' value='$c_cpf' readonly>
+							<br>
+							<div class='descricao'>
+								<div>
+
+								</div>
+								<div>
+									<div class='what'>Nome:</div>
+									<input name='std' class='info' type='text' value='$c_nome' readonly>
+								</div>
+								
+								<div class='infoline'>
+									<div class='what'>CPF:</div>
+									<input class='info' type='text' value='$c_cpf' readonly>
+								</div>
+								
+								<div class='infoline'>
+									<div class='what'>Matricula:</div>
+									<input name='mat' class='info' type='text' value='$c_matricula'readonly>
+								</div>
+								
+								<div class='infoline'>
+									<div name='curso' class='what'>Curso:</div>
+									<input class='info' type='text' value='$c_curso' readonly>
+								</div>
+								
+								<div class='infoline'>
+									<div name='unit' class='what'>Unidade:</div>
+									<input class='info' type='text' value='$c_unidade' readonly>
+								</div>
+								
+								<div class='infoline'> 
+									<div name='unit' class='what'>Telefone: </div>
+									<input class='info' type='text' value='$c_telefone' readonly> 
+								</div>
+								
+								<div class='infoline'>
+									<div name='unit' class='what'>Endereço: </div>
+									<input class='info' type='text' value='$c_endereco' readonly>
+								</div>
+								
+								<div class='infoline'>
+									<div name='unit' class='what'> E-mail: </div>
+									<input class='info' type='text' value='$c_email' readonly>
+								</div>
+								
+								<div class='infoline'>
+									<div name='unit' class='what'> Nascimento: </div>
+									<input class='info' type='text' value='$c_data_nasc' readonly> 
 							</div>
-							
-							<div class='infoline'>
-								<div class='what'>Matricula:</div>
-								<input name='mat' class='info' type='text' value='$c_matricula'readonly>
-							</div>
-							
-							<div class='infoline'>
-								<div name='curso' class='what'>Curso:</div>
-								<input class='info' type='text' value='$c_curso' readonly>
-							</div>
-							
-							<div class='infoline'>
-								<div name='unit' class='what'>Unidade:</div>
-								<input class='info' type='text' value='$c_unidade' readonly>
-							</div>
-						</div>
-					</div></form>	
-				<br>");
+						</div></form>	
+					<br>");
+
+		
 			}
 			
 			$sql="select emp.nome as 'Nome', est.data_inicio_vigencia as 'Data Inicio', est.data_fim_vigencia as 'Data Fim', 
-					est.data_rescisao as 'Data Rescisão', emp.id as 'emp_id', est.Estado as 'Estado',
+					est.data_rescisao as 'Data Rescisão', emp.id as 'emp_id',est.horas as 'horas', est.Estado as 'Estado',
 					conv.id as 'conv_id', est.id as 'est_id'
 				from empresa emp
 					inner join convenio conv on emp.id = conv.id_empresa
 					inner join estagio est on conv.id = est.id_convenio
-					inner join aluno alu on est.id_aluno = alu.id 
-				where alu.id='$id'
+					inner join pessoa__curso pc on est.id_aluno = pc.id 
+				where pc.id_pessoa='$id'
 				order by est.data_inicio_vigencia, emp.nome";
 		
 			$table=getTable4($c, $sql, "Estágios");
@@ -279,7 +308,7 @@
 				if($count>0){
 					$nome[$count];
 					for($i=0;$i<$count;$i++){
-						$line = mysql_fetch_assoc($res);
+						$line = mysqli_fetch_assoc($res);
 						$nome[$i] = $line['Nome'];
 						$idEst[$i] = $line['est_id'];
 					}
@@ -321,10 +350,10 @@
 					echo("<form class='agreement' method='POST' action='newAgreement2.php'><input type='hidden' name='id' value='$id'>");
 					echo("</form>");
 
-			mysql_close($c);	
+			mysqli_close($c);	
 			?>
 			<!-- Fim php -->
-		</div> 
+		</div>
 	</center>
 </body>
 
